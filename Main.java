@@ -1,65 +1,80 @@
-// Single-file example demonstrating
-// Inheritance, Interface, Composition, and Polymorphism
 
-interface Weapon {
-    String getName();
-    void attack();
+
+abstract class Cat{
+    String attire; 
+    double size; 
+    boolean isBehaved; 
+
+    public Cat(String attire, double size, boolean isBehaved){
+        this.attire = attire; 
+        this.size = size; 
+        this.isBehaved = isBehaved; 
+    }
+
+    abstract void sound();
 }
 
-class Sword implements Weapon {
-    @Override
-    public String getName() {
-        return "Sword";
+class cat1 extends Cat{
+    public cat1(String attire, double size, boolean isBehaved){
+        super(attire, size, isBehaved);
     }
 
     @Override
-    public void attack() {
-        System.out.println("Swing swing ziiinggg!");
+    void sound(){
+        System.out.println("Meowww");
     }
 }
-
-abstract class Cat {
-    protected double size;
-    protected String attire;
-    protected boolean isBehaved;
-
-    public Cat(double size, String attire, boolean isBehaved) {
-        this.size = size;
-        this.attire = attire;
-        this.isBehaved = isBehaved;
-    }
-
-    public abstract void sound();
-}
-class Cat2 extends Cat {
-
-    private final Weapon weapon; // mandatory
-
-    public Cat2(double size, String attire, boolean isBehaved, Weapon weapon) {
-        super(size, attire, isBehaved);
+class cat2 extends Cat{
+    Weapon weapon; 
+    public cat2(
+        String attire, double size, boolean isBehaved,
+        Weapon weapon
+    )
+    {
+        super(attire, size, isBehaved);
         this.weapon = weapon;
     }
 
-    public void attack() {
-        System.out.println("Cat attacks with " + weapon.getName());
-        weapon.attack();
+    @Override
+    void sound(){
+        System.out.println("Ngaungggg");
     }
 
-    @Override
-    public void sound() {
-        System.out.println("Ngaung");
+    public void attack(){
+        System.out.println(
+            "Kucing menyerang dengan"
+            + weapon.getNama()
+        );
+        weapon.attack();
     }
 }
 
+interface Weapon{
+    String getNama(); 
+    void attack(); 
+}
+
+class lightsaber implements Weapon{
+    @Override
+    public void attack(){
+        System.out.println("swing zing");
+    }
+
+    @Override
+    public String getNama(){
+        return "Light Saber";
+    }
+}
 
 public class Main {
     public static void main(String[] args) {
-
-        Cat2 redCat = new Cat2(1.0, "Red hat", false, new Sword());
-
+        Cat redCat = new cat2(
+            "Blue hat", 
+            1.0, 
+            true, 
+            new lightsaber()); 
+            
         redCat.sound();
-        redCat.attack();
-
-        redCat.attack();
+        redCat.attack(); 
     }
 }
