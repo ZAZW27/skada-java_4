@@ -9,7 +9,7 @@ class Sword implements Weapon {
     public String getName() {
         return "Sword";
     }
-
+// this is a new line to test on merging in github
     @Override
     public void attack() {
         System.out.println("Swing swing ziiinggg!");
